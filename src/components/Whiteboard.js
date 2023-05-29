@@ -3,7 +3,7 @@ import { fabric } from 'fabric';
 import { Slider } from '@mui/material';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import CheckIcon from '@mui/icons-material/Check';
-import ClearIcon from '@mui/icons-material/Clear';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Icon from '@mdi/react';
 import { mdiEraser } from '@mdi/js';
 
@@ -61,13 +61,14 @@ const Whiteboard = () => {
 
   useEffect(() => {
     if (eraserMode) {
-      canvas.current.freeDrawingBrush.color = '#FFFFFF'; // Set brush color to white
+      canvas.current.freeDrawingBrush = new fabric.EraserBrush(canvas.current);
       canvas.current.freeDrawingBrush.width = eraserSlider;
-      canvas.current.isDrawingMode = true; // Enable drawing mode for eraser
+      canvas.current.isDrawingMode = true; 
     } else {
-      canvas.current.freeDrawingBrush.color = color; // Reset brush color to the selected color
+      canvas.current.freeDrawingBrush = new fabric.PencilBrush(canvas.current);
+      canvas.current.freeDrawingBrush.color = color; 
       canvas.current.freeDrawingBrush.width = sliderValue;
-      canvas.current.isDrawingMode = drawingMode; // Restore drawing mode
+      canvas.current.isDrawingMode = drawingMode;
     }
     canvas.current.renderAll();
   }, [eraserMode, color, drawingMode, eraserSlider, sliderValue]);
@@ -90,7 +91,7 @@ const Whiteboard = () => {
             style={{backgroundColor: `${colorSelection}`}}  
           >{colorSelection === color ? <CheckIcon sx={{color: 'white', width: '1.1rem'}}/> : ''}</button>
           })}
-          <button className='button-special button-basic' onClick={handleClear}><ClearIcon sx={{width: '1rem'}}/></button>
+          <button className='button-special button-basic' onClick={handleClear}><DeleteIcon sx={{width: '1rem'}}/></button>
         </div>
         <div className='eraser-container'>
           <button className={`button-basic button-special ${eraserMode?'button-active':''}`} 
