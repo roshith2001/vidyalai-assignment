@@ -31,7 +31,28 @@
 }
 .brush-container, .eraser-container{
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    width: 50vw;
+    width: 100%;
+}
+.brush-container{
+    width: 60%;
+}
+.shapes{
+    position: fixed;
+    bottom: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 100vw;
+}
+.canvas-change{
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 5px;
 }
